@@ -58,7 +58,7 @@ const FilterDrawer = ({
         close: 'rounded-full cursor-pointer text-md w-[32px] h-[32px]'
       }}
     >  
-      <DateRangePicker dateRange={dateRange} setDateRange={(val) => handlePendingChange('dateRange', val as TDateRange)} />
+      <DateRangePicker dateRange={dateRange} setDateRange={(val) => handlePendingChange('dateRange', val)} />
       <Box className="mb-6">
         <Text fw="600" mb={12} lh={1}>Transaction Type</Text>
         <MultiSelectDropdown

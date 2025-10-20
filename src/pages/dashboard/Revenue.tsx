@@ -69,6 +69,9 @@ const Revenue = () => {
       pending: defaultFilters,
       applied: defaultFilters,
     });
+    if (opened) {
+      close();
+    }
   };
 
   let content;
@@ -207,7 +210,6 @@ const Revenue = () => {
       <FilterDrawer
         opened={opened} 
         close={close}
-        // filters={filters}
         dateRange={filters.pending.dateRange}
         selectedTransactionStatus={filters.pending.status}
         selectedTransactionType={filters.pending.type}
