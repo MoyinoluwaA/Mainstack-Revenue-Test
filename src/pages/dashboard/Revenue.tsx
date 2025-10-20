@@ -77,7 +77,7 @@ const Revenue = () => {
   if (isLoading) {
     content = (
       <Stack>
-        {Array.from({ length: 3 }).map((item, index) => 
+        {Array.from({ length: 3 }).map((_, index) => 
           <Skeleton height={49} radius="xl" key={index} />
         )}
       </Stack>
