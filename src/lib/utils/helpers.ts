@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import type { TTransactions } from "../types";
+import type { FilterParams, TTransactions } from "../types";
 
 /**
  * Description - Formats a number as a price with comma separators with decimal places.
@@ -14,28 +14,15 @@ export const formatAmount = (amount: number, decimalPlaces: number = 0): string 
   });
 };
 
-type DateRange = {
-  startDate: Date | null;
-  endDate: Date | null;
-};
-
-type FilterParams = {
-  transactions: TTransactions;
-  selectedTypes: string[];
-  selectedStatuses: string[];
-  dateRange: DateRange;
-};
-
 /**
  * Description - Filters transaction based on transaction type, status and date range
  * @param transactions - All transactions
- * @param selectedTypes - Array of all selected transaction types
- * @param selectedStatuses - Array of all selected transaction status
- * @param dateRange - date range
+ * @param obj.selectedTypes - Array of all selected transaction types
+ * @param obj.selectedStatuses - Array of all selected transaction status
+ * @param obj.dateRange - date range
  * @returns - The formatted amount string
  */
-export const filterTransactions = ({
-  transactions,
+export const filterTransactions = (transactions: TTransactions, {
   selectedTypes,
   selectedStatuses,
   dateRange,

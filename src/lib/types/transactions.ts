@@ -15,3 +15,14 @@ export type TFiltersObj = {
   pending: TFilters;
   applied: TFilters;
 }
+
+type DateRange = {
+  startDate: Date | null;
+  endDate: Date | null;
+};
+
+export type FilterParams = {
+  selectedTypes: string[];
+  selectedStatuses: string[];
+  dateRange: DateRange;
+};

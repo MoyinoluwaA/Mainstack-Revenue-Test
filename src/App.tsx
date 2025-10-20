@@ -4,6 +4,7 @@ import { MantineProvider } from '@mantine/core';
 import { Layout } from './components';
 import { MantineTheme } from './styles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Notifications } from '@mantine/notifications';
 
 function App() {
   const queryClient = new QueryClient();
@@ -12,7 +13,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <MantineProvider theme={MantineTheme}>
-        {/* <Notifications /> */}
+        <Notifications />
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard/revenue" />}  />
           <Route

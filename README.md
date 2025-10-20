@@ -1,4 +1,4 @@
-<h1 align="center">📧 Mainstack Revenue Screen</h1>
+<h1 align="center">Mainstack Revenue Screen</h1>
 
 ## Project Goal
 
@@ -14,6 +14,7 @@ Recreate a figma design using React, implementing filtering, api integration, an
 - **Filtering**: Filter transactions through date range, transaction type and status.
 - **Performance**: Lazy loading, memoization, and TanStack Query for caching and background refetching.
 - **Consistent Styling**: Built with [Tailwind CSS](https://tailwindcss.com/) and [Mantine UI](https://mantine.dev/).
+- **Unit Testing**: Used [Vitest](https://vitest.dev/) & [React Testing Library](https://www.npmjs.com/package/@testing-library/react) for test.
 
 ---
 
@@ -24,6 +25,7 @@ Recreate a figma design using React, implementing filtering, api integration, an
 - [TanStack Query](https://tanstack.com/query/latest) for data fetching/caching
 - [Axios](https://axios-http.com/) for HTTP requests
 - [Tailwind CSS](https://tailwindcss.com/) & [Mantine UI](https://mantine.dev/) for styling
+- [Vitest](https://vitest.dev/) & [React Testing Library](https://www.npmjs.com/package/@testing-library/react) for testing.
 
 ---
 
@@ -51,6 +53,12 @@ npm run dev
 
 The app will be available at [http://localhost:5173](http://localhost:5173).
 
+### 4. Run test
+
+```bash
+npm run test
+```
+
 ---
 
 
@@ -70,7 +78,7 @@ The app will be available at [http://localhost:5173](http://localhost:5173).
 
 ## Deployment
 
-Deployed on Vercel and the demo link is available [here]()
+Deployed on Vercel and the demo link is available [here](https://mainstack-revenue-test.vercel.app/)
 
 ---
 

@@ -44,15 +44,14 @@ const Revenue = () => {
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  const filteredTransactions = useMemo(
-    () => filterTransactions({ 
-      transactions: transactionData, 
+  const filteredTransactions = useMemo(() => {
+    const result = filterTransactions(transactionData, { 
       selectedTypes: filters.applied.type, 
       selectedStatuses: filters.applied.status, 
       dateRange: filters.applied.dateRange
-    }),
-    [transactionData, filters.applied]
-  );
+    });
+    return result || [];
+  }, [transactionData, filters.applied]);
 
   const getFilterCount = () => {
     const isFilterByType = filters.applied.type.length > 0;
@@ -78,25 +77,27 @@ const Revenue = () => {
     content = (
       <Stack>
         {Array.from({ length: 3 }).map((_, index) => 
-          <Skeleton height={49} radius="xl" key={index} />
+          <Skeleton data-testid="skeleton" height={49} radius="xl" key={index} />
         )}
       </Stack>
     )
   } else if (filteredTransactions.length === 0) {
     content = (
-      <Box maw={369} className="mx-auto">
-        <span className="rounded-full p-3 mb-5">
+      <Box maw={369} className="mx-auto pt-5">
+        <Box className="rounded-full w-fit p-3 mb-5" style={{ background: "linear-gradient(135deg, #DBDEE6 1.89%, #F6F7F9 98.77%)" }}>
           <ScrollText width={24} height={24} />
-        </span>
-        <Text>No matching transaction found for the selected filter</Text>
-        <Text>Change your filters to see more results, or add a new product.</Text>
-        <Button mt={32} className="rounded-[100px]" bg="#EFF1F6" c="#131316" onClick={handleResetFilters}>Clear Filter</Button>
+        </Box>
+        <Text fw="bold" mb={4} fz={28} className="tracking-[-0.6px]">No matching transaction found for the selected filter</Text>
+        <Text c="#56616B" fw="500">Change your filters to see more results, or add a new product.</Text>
+        <Button mt={32} className="rounded-[100px]" bg="#EFF1F6" c="#131316" onClick={handleResetFilters} fz={16} h={48}>
+          Clear Filter
+        </Button>
       </Box>
     );
   } else if (transactionData.length === 0) {
     content = (
-      <Box maw={369} className="mx-auto">
-        <Text>No transaction found</Text>
+      <Box maw={369} className="mx-auto pt-5">
+        <Text fw="bold" mb={4} fz={28} className="tracking-[-0.6px]">No transaction found</Text>
       </Box>
     );
   } else {
@@ -119,7 +120,7 @@ const Revenue = () => {
               <Text fz="sm" lh={1.2}>{wallet[0].name}</Text>
               <Text fz={36} fw="bold" className="text-[#131316] leading-12">
                 {wallet[0]?.amount === null ? (
-                  <Loader color="blue" type="dots" />
+                  <Loader data-testid="loader" color="blue" type="dots" />
                 ) : (
                   <>USD {formatAmount(wallet[0].amount, 2)}</>
                 )}
@@ -127,23 +128,29 @@ const Revenue = () => {
             </Stack>
             <Button className="disabled rounded-[100px]" variant="filled" color="#131316" py={14} px={52} h={52}>Withdraw</Button>
           </Flex>
-          <LineChart
-            h={260}
-            data={sortedData}
-            dataKey="date"
-            series={[
-              { name: 'revenue', label: 'Revenue', color: 'blue.6' },
-              { name: 'payout', label: 'Payout', color: 'green.6' },
-            ]}
-            curveType="linear"
-            withDots={false}
-            valueFormatter={(value) => `USD ${value}`}
-            xAxisProps={{
-              tickFormatter: (date) => dayjs(date).format('MMM D, YYYY'),
-            }}
-            // withLegend
-            // legendProps={{ verticalAlign: 'bottom', height: 50 }}
-          />
+          {/* <Box px={16} style={{ width: '100%', maxWidth: '100%', overflow: 'visible' }}> */}
+            <LineChart
+              h={260}
+              data={sortedData}
+              dataKey="date"
+              series={[
+                { name: 'revenue', color: 'blue.6' },
+                { name: 'payout', color: 'green.6' },
+              ]}
+              curveType="linear"
+              withDots={false}
+              valueFormatter={(value) => `USD ${value}`}
+              xAxisProps={{
+                tickFormatter: (date) => dayjs(date).format('MMM D, YYYY'),
+              }}
+              tooltipProps={{
+                contentStyle: { whiteSpace: 'nowrap', padding: '6px 10px' },
+                wrapperStyle: { pointerEvents: 'none' },
+              }}
+              // withLegend
+              // legendProps={{ verticalAlign: 'bottom' }}
+            />
+          {/* </Box> */}
         </Grid.Col>
         <Grid.Col span={{ base: 12, lg: 4 }} maw={{ lg: 271 }} className="ml-auto">
           <Grid gutter={{ base: 5, xs: 'md', md: 'xl' }}>
@@ -157,7 +164,7 @@ const Revenue = () => {
                     </Flex>
                     <Text fz={28} fw="bold" className="text-[#131316] leading-9">
                       {data?.amount === null ? (
-                        <Loader color="blue" type="dots" />
+                        <Loader data-testid="loader" color="blue" type="dots" />
                       ) : (
                         <>USD {formatAmount(data.amount, 2)}</>
                       )}
