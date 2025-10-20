@@ -128,7 +128,6 @@ describe('<Revenue />', () => {
     const clearButton = screen.getByRole('button', { name: /Clear Filter/i });
     fireEvent.click(clearButton);
 
-    screen.debug();
     await waitFor(() => {
       expect(clearButton).toBeInTheDocument();
     });
